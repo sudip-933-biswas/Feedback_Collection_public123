@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard - Feedback System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Faculty Dashboard</h2>
+            <p class="faculty-name">{{ faculty_name }}</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+        </aside>
+        
+        <main class="main-content">
+            <h1>Your Reviews</h1>
+            
+            {% if reviews %}
+            <div class="reviews-list">
+                {% for review in reviews %}
+                <div class="review-card">
+                    <div class="review-ratings">
+                        <div class="rating-item">
+                            <strong>Behavior:</strong> {{ review.behavior | capitalize }}
+                        </div>
+                        <div class="rating-item">
+                            <strong>Punctuality:</strong> {{ review.punctuality | capitalize }}
+                        </div>
+                        <div class="rating-item">
+                            <strong>Teaching:</strong> {{ review.teaching_method | capitalize }}
+                        </div>
+                    </div>
+                    {% if review.comments %}
+                    <div class="review-comments">
+                        <strong>Comments:</strong> {{ review.comments }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="no-reviews">No reviews submitted yet.</p>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>
